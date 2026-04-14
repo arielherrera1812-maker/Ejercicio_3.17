@@ -1,119 +1,77 @@
+import java.time.LocalDate;
+import java.time.Period;
+
 public class PerfilMedico {
-    private String nombre;
+    private String primerNombre;
     private String apellido;
     private String sexo;
-    private int anio;
-    public int mes;
-    public int dia;
-    public Double altura;
-    public Double peso;
+    private int diaNacimiento;
+    private int mesNacimiento;
+    private int anioNacimiento;
+    private double alturaEnCentimetros;
+    private double pesoEnKilogramos;
 
-
-    public PerfilMedico(String nombre, String apellido, String sexo, int anio, int mes, int dia, Double altura, Double peso){
-        this.nombre = nombre;
+    public PerfilMedico(String primerNombre, String apellido, String sexo, int diaNacimiento, int mesNacimiento, int anioNacimiento, double alturaEnCentimetros, double pesoEnKilogramos) {
+        this.primerNombre = primerNombre;
         this.apellido = apellido;
         this.sexo = sexo;
-        this.anio = anio;
-        this.mes = mes;
-        this.dia = dia;
-        this.altura = altura;
-        this.peso = peso;
-
+        this.diaNacimiento = diaNacimiento;
+        this.mesNacimiento = mesNacimiento;
+        this.anioNacimiento = anioNacimiento;
+        this.alturaEnCentimetros = alturaEnCentimetros;
+        this.pesoEnKilogramos = pesoEnKilogramos;
     }
 
-    public int CalcularEdad(int anio, int mes, int dia ){
-        int anioActual = 2026;
-        int mesActual = 4;
-        int diaActual =14;
 
-        int fechaActualDias = anioActual * 365 + mesActual * 30 + diaActual;
-        int fechaNacimientoDias = this.anio * 365 + this.mes * 30 + this.dia;
-        int edadDias = fechaActualDias - fechaNacimientoDias;
 
-        int edad = edadDias/365;
-        return edad;
+
+    public int calcularEdad() {
+        LocalDate fechaNacimiento = LocalDate.of(anioNacimiento, mesNacimiento, diaNacimiento);
+        LocalDate fechaActual = LocalDate.now();
+        return Period.between(fechaNacimiento, fechaActual).getYears();
     }
 
-    //la fórmula para calcular su frecuencia cardiaca máxima en pulsos por minuto es 220 menos su edad en años
-    public int CalcularFCardiaca(int edad){
-        int frecuenciaCMaxima = 220 - edad;
-        return frecuenciaCMaxima;
-
-    }
-    public int FrecuenciaCardiacaEsperada(int frecuenciaCMaxima){
-        int frecuenciaCEsperada = frecuenciaCMaxima/2;
-        return frecuenciaCEsperada;
-
+    public int calcularFrecuenciaCardiacaMaxima() {
+        return 220 - calcularEdad();
     }
 
-    public Double MasaC(Double peso, Double altura){
-        Double alturaCuadrado = Math.pow(altura,2);
-        Double masaC = peso/alturaCuadrado;
-        return masaC;
+    public String calcularRangoFrecuenciaEsperada() {
+        int max = calcularFrecuenciaCardiacaMaxima();
+        // El rango esperado estándar y médico suele estar entre el 50% y el 85% de la FCM
+        double minEsperada = max * 0.50;
+        double maxEsperada = max * 0.85;
+        return String.format("%.2f - %.2f latidos por minuto", minEsperada, maxEsperada);
     }
 
-    public String getNombre() {
-        return nombre;
+    public double calcularBMI() {
+        double alturaEnMetros = alturaEnCentimetros / 100.0;
+        return pesoEnKilogramos / (alturaEnMetros * alturaEnMetros);
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    // --- Getters y Setters ---
 
-    public String getApellido() {
-        return apellido;
-    }
+    public String getPrimerNombre() { return primerNombre; }
+    public void setPrimerNombre(String primerNombre) { this.primerNombre = primerNombre; }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+    public String getApellido() { return apellido; }
+    public void setApellido(String apellido) { this.apellido = apellido; }
 
-    public String getSexo() {
-        return sexo;
-    }
+    public String getSexo() { return sexo; }
+    public void setSexo(String sexo) { this.sexo = sexo; }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
+    public int getDiaNacimiento() { return diaNacimiento; }
+    public void setDiaNacimiento(int diaNacimiento) { this.diaNacimiento = diaNacimiento; }
 
-    public int getAnio() {
-        return anio;
-    }
+    public int getMesNacimiento() { return mesNacimiento; }
+    public void setMesNacimiento(int mesNacimiento) { this.mesNacimiento = mesNacimiento; }
 
-    public void setAnio(int anio) {
-        this.anio = anio;
-    }
+    public int getAnioNacimiento() { return anioNacimiento; }
+    public void setAnioNacimiento(int anioNacimiento) { this.anioNacimiento = anioNacimiento; }
 
-    public int getMes() {
-        return mes;
-    }
+    public double getAlturaEnCentimetros() { return alturaEnCentimetros; }
+    public void setAlturaEnCentimetros(double alturaEnCentimetros) { this.alturaEnCentimetros = alturaEnCentimetros; }
 
-    public void setMes(int mes) {
-        this.mes = mes;
-    }
-
-    public int getDia() {
-        return dia;
-    }
-
-    public void setDia(int dia) {
-        this.dia = dia;
-    }
-
-    public Double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(Double altura) {
-        this.altura = altura;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Double peso) {
-        this.peso = peso;
-    }
+    public double getPesoEnKilogramos() { return pesoEnKilogramos; }
+    public void setPesoEnKilogramos(double pesoEnKilogramos) { this.pesoEnKilogramos = pesoEnKilogramos; }
 }
 
