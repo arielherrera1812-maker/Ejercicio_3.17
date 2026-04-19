@@ -1,6 +1,3 @@
-import java.time.LocalDate;
-import java.time.Period;
-
 public class PerfilMedico {
     private String primerNombre;
     private String apellido;
@@ -26,18 +23,29 @@ public class PerfilMedico {
 
 
     public int calcularEdad() {
-        LocalDate fechaNacimiento = LocalDate.of(anioNacimiento, mesNacimiento, diaNacimiento);
-        LocalDate fechaActual = LocalDate.now();
-        return Period.between(fechaNacimiento, fechaActual).getYears();
+
+        int anioActual = 2026;
+        int mesActual = 4;
+        int diaActual = 15;
+
+        int fechaActualDias = anioActual * 365 + mesActual * 30 + diaActual;
+        int fechaNacimientoDias = this.anioNacimiento * 365 + this.mesNacimiento * 30 + this.diaNacimiento;
+        int edadDias = fechaActualDias - fechaNacimientoDias;
+
+        int edad = edadDias / 365;
+        return edad;
+
     }
 
     public int calcularFrecuenciaCardiacaMaxima() {
-        return 220 - calcularEdad();
+
+        int calcularFMC = 220 - calcularEdad();
+
+        return calcularFMC;
     }
 
     public String calcularRangoFrecuenciaEsperada() {
         int max = calcularFrecuenciaCardiacaMaxima();
-        // El rango esperado estándar y médico suele estar entre el 50% y el 85% de la FCM
         double minEsperada = max * 0.50;
         double maxEsperada = max * 0.85;
         return String.format("%.2f - %.2f latidos por minuto", minEsperada, maxEsperada);
@@ -45,33 +53,73 @@ public class PerfilMedico {
 
     public double calcularBMI() {
         double alturaEnMetros = alturaEnCentimetros / 100.0;
-        return pesoEnKilogramos / (alturaEnMetros * alturaEnMetros);
+        double bmiCalculado = pesoEnKilogramos / Math.pow(alturaEnMetros,2);
+        return bmiCalculado;
     }
 
-    // --- Getters y Setters ---
 
-    public String getPrimerNombre() { return primerNombre; }
-    public void setPrimerNombre(String primerNombre) { this.primerNombre = primerNombre; }
+    public String getPrimerNombre() {
+        return primerNombre;
+    }
 
-    public String getApellido() { return apellido; }
-    public void setApellido(String apellido) { this.apellido = apellido; }
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre = primerNombre;
+    }
 
-    public String getSexo() { return sexo; }
-    public void setSexo(String sexo) { this.sexo = sexo; }
+    public String getApellido() {
+        return apellido;
+    }
 
-    public int getDiaNacimiento() { return diaNacimiento; }
-    public void setDiaNacimiento(int diaNacimiento) { this.diaNacimiento = diaNacimiento; }
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
-    public int getMesNacimiento() { return mesNacimiento; }
-    public void setMesNacimiento(int mesNacimiento) { this.mesNacimiento = mesNacimiento; }
+    public String getSexo() {
+        return sexo;
+    }
 
-    public int getAnioNacimiento() { return anioNacimiento; }
-    public void setAnioNacimiento(int anioNacimiento) { this.anioNacimiento = anioNacimiento; }
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
 
-    public double getAlturaEnCentimetros() { return alturaEnCentimetros; }
-    public void setAlturaEnCentimetros(double alturaEnCentimetros) { this.alturaEnCentimetros = alturaEnCentimetros; }
+    public int getDiaNacimiento() {
+        return diaNacimiento;
+    }
 
-    public double getPesoEnKilogramos() { return pesoEnKilogramos; }
-    public void setPesoEnKilogramos(double pesoEnKilogramos) { this.pesoEnKilogramos = pesoEnKilogramos; }
+    public void setDiaNacimiento(int diaNacimiento) {
+        this.diaNacimiento = diaNacimiento;
+    }
+
+    public int getMesNacimiento() {
+        return mesNacimiento;
+    }
+
+    public void setMesNacimiento(int mesNacimiento) {
+        this.mesNacimiento = mesNacimiento;
+    }
+
+    public int getAnioNacimiento() {
+        return anioNacimiento;
+    }
+
+    public void setAnioNacimiento(int anioNacimiento) {
+        this.anioNacimiento = anioNacimiento;
+    }
+
+    public double getAlturaEnCentimetros() {
+        return alturaEnCentimetros;
+    }
+
+    public void setAlturaEnCentimetros(double alturaEnCentimetros) {
+        this.alturaEnCentimetros = alturaEnCentimetros;
+    }
+
+    public double getPesoEnKilogramos() {
+        return pesoEnKilogramos;
+    }
+
+    public void setPesoEnKilogramos(double pesoEnKilogramos) {
+        this.pesoEnKilogramos = pesoEnKilogramos;
+    }
 }
 

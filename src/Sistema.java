@@ -25,12 +25,9 @@ public class Sistema {
         System.out.print("Ingresa tu peso en kilogramos (ej. 70.5): ");
         double peso = input.nextDouble();
 
-        // Instanciamos el objeto usando el constructor
         PerfilMedico paciente = new PerfilMedico(nombre, apellido, sexo, dia, mes, anio, altura, peso);
 
-        // Imprimimos el reporte completo
         imprimirReporte(paciente);
-        input.close();
     }
 
     private void imprimirReporte(PerfilMedico paciente) {
